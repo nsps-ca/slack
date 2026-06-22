@@ -1,6 +1,12 @@
 name: Notify of any events today
 
 on:
+  workflow_dispatch:
+   inputs:
+     day:
+       description: 'Date to check for events (YYYY-MM-DD)'
+       required: false
+       default: ''
   schedule:
   - cron: '55 12 * * *'
   # Vancouver time, this is 5:55am, which should be before most events start.
