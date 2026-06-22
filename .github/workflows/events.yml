@@ -2,7 +2,8 @@ name: Notify of any events today
 
 on:
   schedule:
-  - cron: '5 17 * * *'
+  - cron: '55 12 * * *'
+  # Vancouver time, this is 5:55am, which should be before most events start.
 
 jobs:
   stale:
