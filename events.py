@@ -74,7 +74,7 @@ def send_to_slack(events, day):
         )
 
     try:
-        client.chat_postMessage(channel="#temp-slack-presentation", text=summary, blocks=blocks)
+        client.chat_postMessage(channel="#chat", text=summary, blocks=blocks)
     except SlackApiError as e:
         print(f"❌ Error sending message to Slack: {e.response['error']}")
 
