@@ -7,8 +7,10 @@ import argparse
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
-client = WebClient(token=os.environ["SLACK_BOT_TOKEN"])
+slack_token = os.environ.get("SLACK_BOT_TOKEN", None)
+client = WebClient(token=slack_token)
 calendar_url = "https://nsps.ca/events/month/?ical=1"
+channel = "#chat"
 
 def get_events():
     headers = {
@@ -35,6 +37,10 @@ def events_for_day(calendar, day):
 
 
 def send_to_slack(events, day):
+    if not slack_token:
+        print("❌ SLACK_BOT_TOKEN environment variable not set, not sending to Slack")
+        return 
+    
     if not events:
         return
     
@@ -74,7 +80,7 @@ def send_to_slack(events, day):
         )
 
     try:
-        client.chat_postMessage(channel="#chat", text=summary, blocks=blocks)
+        client.chat_postMessage(channel=channel, text=summary, blocks=blocks)
     except SlackApiError as e:
         print(f"❌ Error sending message to Slack: {e.response['error']}")
 
@@ -85,7 +91,13 @@ if __name__ == "__main__":
     args = parser.parse_args()
     day = datetime.date.strptime(args.day, "%Y-%m-%d") if args.day else datetime.date.today()
     print(f"ℹ️ Looking for events for the day {day}")
-    calendar = get_calendar()
+    
+    try:
+        calendar = get_calendar()
+    except ValueError as e:
+        print(f"❌ No events for this month, calendar is empty.")
+        exit(1)
+
     print(f"✅ Found {len(calendar.walk('vevent'))} event(s) in calendar")
     events = events_for_day(calendar, day)
     print(f"✅ Found {len(events)} event(s) for the day {day}")
