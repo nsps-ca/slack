@@ -2,6 +2,7 @@ import requests
 import icalendar
 import datetime
 import os
+import sys
 import argparse
 
 from slack_sdk import WebClient
@@ -96,7 +97,7 @@ if __name__ == "__main__":
         calendar = get_calendar()
     except ValueError as e:
         print(f"❌ No events for this month, calendar is empty.")
-        exit(0)
+        sys.exit(0)
 
     print(f"✅ Found {len(calendar.walk('vevent'))} event(s) in calendar")
     events = events_for_day(calendar, day)
