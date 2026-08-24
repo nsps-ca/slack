@@ -10,6 +10,7 @@ Slack is a platform to chat to other people at NSPS. It's a private place just f
 * Non-members cannot access it.
 * Photographs that are shared are not visible by the public.
 * Photographs that are shared are stripped of [EXIF information](https://en.wikipedia.org/wiki/Exif).
+* Messages and photos are inaccessible after 90 days.
 
 ### Joining Slack
 
