@@ -13,7 +13,7 @@ from slack_sdk.errors import SlackApiError
 
 slack_token = os.environ.get("SLACK_BOT_TOKEN", None)
 slack_client = WebClient(token=slack_token)
-channel = "#testing-only"
+channel = "#it-strategy"
 
 TOKEN_URL = "https://zoom.us/oauth/token"
 RECORDINGS_ENDPOINT = "/accounts/me/recordings"
@@ -50,8 +50,8 @@ def send_to_slack(recording):
             },
             "accessory": {
                 "type": "button",
-                "text": {"type": "plain_text", "text": "Zoom access needed", "emoji": True},
-                "url": recording["share_url"],
+                "text": {"type": "plain_text", "text": "Play", "emoji": True},
+                "url": "{}?pwd={}".format(recording["share_url"], recording["recording_play_passcode"],
                 "action_id": "button-action",
             },
         },
