@@ -51,7 +51,7 @@ def send_to_slack(recording):
             "accessory": {
                 "type": "button",
                 "text": {"type": "plain_text", "text": "More info", "emoji": True},
-                "url": recording["url"],
+                "url": recording["share_url"],
                 "action_id": "button-action",
             },
         },
