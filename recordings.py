@@ -12,7 +12,7 @@ from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
 slack_token = os.environ.get("SLACK_BOT_TOKEN", None)
-client = WebClient(token=slack_token)
+slack_client = WebClient(token=slack_token)
 channel = "#testing-only"
 
 TOKEN_URL = "https://zoom.us/oauth/token"
@@ -33,7 +33,7 @@ def send_to_slack(recording):
         print("❌ SLACK_BOT_TOKEN environment variable not set, not sending to Slack")
         return 
 
-    client.api_test()
+    slack_client.api_test()
     summary = "📣 A new recording has appeared in Zoom"
     blocks = [{"type": "section", "text": {"type": "mrkdwn", "text": summary}}]
 
@@ -60,7 +60,7 @@ def send_to_slack(recording):
         )
 
     try:
-        client.chat_postMessage(channel=channel, text=summary, blocks=blocks)
+        slack_client.chat_postMessage(channel=channel, text=summary, blocks=blocks)
     except SlackApiError as e:
         print(f"❌ Error sending message to Slack: {e.response['error']}")
 
