@@ -1,6 +1,7 @@
 name: Notify of any new recordings
 
 on:
+  workflow_dispatch:
   schedule:
   - cron: '35 12 * * *'
   # Vancouver time, this is 5:55am, which should be before most events start.
