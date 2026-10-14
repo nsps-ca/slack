@@ -36,28 +36,26 @@ def send_to_slack(recording):
     slack_client.api_test()
     summary = "📣 A new recording has appeared in Zoom"
     blocks = [{"type": "section", "text": {"type": "mrkdwn", "text": summary}}]
-
-    for event in events:
-        blocks.append(
-            {
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "This notification is sent so you can move it over to the Google Drive and others can see it, if it isn't already there.",
-                },
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "{}".format(recording["topic"]),
-                },
-                "accessory": {
-                    "type": "button",
-                    "text": {"type": "plain_text", "text": "More info", "emoji": True},
-                    "url": recording["url"],
-                    "action_id": "button-action",
-                },
+    blocks.append(
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "This notification is sent so you can move it over to the Google Drive and others can see it, if it isn't already there.",
             },
-        )
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "{}".format(recording["topic"]),
+            },
+            "accessory": {
+                "type": "button",
+                "text": {"type": "plain_text", "text": "More info", "emoji": True},
+                "url": recording["url"],
+                "action_id": "button-action",
+            },
+        },
+    )
 
     try:
         slack_client.chat_postMessage(channel=channel, text=summary, blocks=blocks)
