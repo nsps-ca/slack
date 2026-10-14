@@ -34,14 +34,14 @@ def send_to_slack(recording):
         return 
 
     slack_client.api_test()
-    summary = "📣 A new recording has appeared in Zoom"
+    summary = "📣 A new recording has appeared in Zoom. This notification is sent so you can move it over to the Google Drive and others can see it, if it isn't already there."
     blocks = [{"type": "section", "text": {"type": "mrkdwn", "text": summary}}]
     blocks.append(
         {
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "This notification is sent so you can move it over to the Google Drive and others can see it, if it isn't already there.",
+                "text": "",
             },
             "type": "section",
             "text": {
@@ -50,7 +50,7 @@ def send_to_slack(recording):
             },
             "accessory": {
                 "type": "button",
-                "text": {"type": "plain_text", "text": "More info", "emoji": True},
+                "text": {"type": "plain_text", "text": "Zoom access needed", "emoji": True},
                 "url": recording["share_url"],
                 "action_id": "button-action",
             },
