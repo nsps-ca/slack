@@ -10,7 +10,7 @@ Slack is a platform to chat to other people at NSPS. It's a private place just f
 * Non-members cannot access it.
 * Photographs that are shared are not visible by the public.
 * Photographs that are shared are stripped of [EXIF information](https://en.wikipedia.org/wiki/Exif).
-* Messages and photos are inaccessible after 90 days.
+* Messages and photos remain on the platform, there is no expiry of data. You will need to explicitly delete content to remove it.
 
 ### Joining Slack
 
@@ -55,5 +55,14 @@ Master help list is for [profile and notifications](https://slack.com/help/categ
 * [Dark mode](https://slack.com/help/articles/360019434914-Use-dark-mode-in-Slack)
 * [Notifications on your phone and desktop](https://slack.com/help/articles/201355156-Configure-your-Slack-notifications)
 * [Email notifications](https://slack.com/help/articles/360003868571-Manage-your-Slack-email-subscriptions)
+
+#### Apps installed
+
+Apps can be installed by admins and provide functionality to Slack. If there's something you want, let us know.
+
+* Simple Poll: type `/poll` to create a poll that people can select answers from.
+* GitHub: only used by the IT team, please ignore it.
+* Grip: an app built by NSPS IT team to hopefully do useful stuff.
+* Google Drive: provides access to our Google Drive.
 
 Hope that helps, feel free to email or message in `#slack-help` once you are into Slack.
