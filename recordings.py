@@ -45,7 +45,7 @@ def send_to_slack(recording):
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": '"{}" is {} minutes long and was recorded on {}".format(recording["topic"], recording["duration"], date),
+                "text": '"{}" is {} minutes long and was recorded on {}'.format(recording["topic"], recording["duration"], date),
             },
             "accessory": {
                 "type": "button",
