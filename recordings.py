@@ -2,9 +2,11 @@ import base64
 import os
 import sys
 import json
+import pprint
 
 from calendar import monthrange
 from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 
 import requests
 from pyzoom import ZoomClient, err
@@ -29,13 +31,10 @@ assert ZOOM_CLIENT_SECRET
 
 
 def send_to_slack(recording):
-    if not slack_token:
-        print("❌ SLACK_BOT_TOKEN environment variable not set, not sending to Slack")
-        return 
-
-    slack_client.api_test()
-    summary = "📣 A new recording has appeared in Zoom. This notification is sent so you can move it over to the Google Drive and others can see it, if it isn't already there."
+    summary = "👋 A new recording has appeared in Zoom, and it's ready to watch if you want."
     blocks = [{"type": "section", "text": {"type": "mrkdwn", "text": summary}}]
+    tz = ZoneInfo(recording["timezone"])
+    date = datetime.fromisoformat(recording["start_time"]).astimezone(tz).strftime("%d %b")
     blocks.append(
         {
             "type": "section",
@@ -46,7 +45,7 @@ def send_to_slack(recording):
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "{}".format(recording["topic"]),
+                "text": '"{}" is {} minutes long and was recorded on {}".format(recording["topic"], recording["duration"], date),
             },
             "accessory": {
                 "type": "button",
@@ -57,6 +56,12 @@ def send_to_slack(recording):
         },
     )
 
+    if not slack_token:
+        print("❌ SLACK_BOT_TOKEN environment variable not set, not sending to Slack. Would have sent:")
+        pprint.pprint(blocks)
+        return 
+
+    slack_client.api_test()
     try:
         slack_client.chat_postMessage(channel=channel, text=summary, blocks=blocks)
     except SlackApiError as e:
