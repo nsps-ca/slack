@@ -15,7 +15,7 @@ from slack_sdk.errors import SlackApiError
 
 slack_token = os.environ.get("SLACK_BOT_TOKEN", None)
 slack_client = WebClient(token=slack_token)
-channel = "#it-strategy"
+channel = "#chat"
 
 TOKEN_URL = "https://zoom.us/oauth/token"
 RECORDINGS_ENDPOINT = "/accounts/me/recordings"
